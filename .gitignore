@@ -1,0 +1,27 @@
+# Caché y archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Variables de entorno y configuraciones locales
+.env
+.env.*
+
+# Herramientas de pruebas y análisis
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editores y sistemas operativos
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
