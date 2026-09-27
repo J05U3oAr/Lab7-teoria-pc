@@ -33,7 +33,7 @@ class Produccion:
         if not derecha:
             raise ValueError("El lado derecho no puede estar vacío; use ε.")
 
-        if derecha.lower() in self.ALIAS_EPSILON:
+        if derecha in self.ALIAS_EPSILON or derecha.lower() == "epsilon":
             derecha = self.SIMBOLO_EPSILON
 
         object.__setattr__(self, "izquierda", izquierda)
