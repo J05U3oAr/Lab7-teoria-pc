@@ -1,0 +1,5 @@
+# Gramática 1 del ejercicio 2
+S -> 0A | 1B | BB
+A -> C
+B -> S | A
+C -> S | e

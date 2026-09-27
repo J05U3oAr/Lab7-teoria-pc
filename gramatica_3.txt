@@ -1,0 +1,4 @@
+# Gramática 3 del ejercicio 2
+S -> ASA | aB
+A -> B | S
+B -> b | e
