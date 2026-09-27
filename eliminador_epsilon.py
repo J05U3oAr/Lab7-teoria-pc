@@ -38,12 +38,24 @@ class EliminadorEpsilon:
         cuyo cuerpo queda vacío se omite para que el resultado no contenga
         producciones-ε.
         """
+        resultado, _ = self.eliminar_con_pasos(gramatica)
+        return resultado
+
+    def eliminar_con_pasos(
+        self, gramatica: Gramatica
+    ) -> tuple[Gramatica, list[str]]:
+        """Elimina ε y devuelve también una descripción de los pasos."""
         nulables = self.encontrar_nulables(gramatica)
+        pasos = [
+            "No terminales anulables: "
+            + (", ".join(sorted(nulables)) if nulables else "ninguno")
+        ]
         resultado: list[Produccion] = []
         claves: set[tuple[str, str]] = set()
 
         for produccion in gramatica.producciones:
             if produccion.es_epsilon:
+                pasos.append(f"Se elimina {produccion}.")
                 continue
 
             posiciones_nulables = [
@@ -53,21 +65,32 @@ class EliminadorEpsilon:
             ]
 
             cantidad_combinaciones = 1 << len(posiciones_nulables)
+            producciones_generadas: list[str] = []
             for mascara in range(cantidad_combinaciones):
+                posiciones_a_omitir = {
+                    posicion
+                    for indice, posicion in enumerate(posiciones_nulables)
+                    if mascara & (1 << indice)
+                }
                 cuerpo = "".join(
                     simbolo
                     for posicion, simbolo in enumerate(produccion.derecha)
-                    if posicion not in posiciones_nulables
-                    or not (mascara & (1 << posiciones_nulables.index(posicion)))
+                    if posicion not in posiciones_a_omitir
                 )
 
                 if not cuerpo:
                     continue
 
                 nueva = Produccion(produccion.izquierda, cuerpo)
+                producciones_generadas.append(str(nueva))
                 clave = (nueva.izquierda, nueva.derecha)
                 if clave not in claves:
                     resultado.append(nueva)
                     claves.add(clave)
 
-        return Gramatica(resultado, gramatica.simbolo_inicial)
+            if producciones_generadas:
+                pasos.append(
+                    f"{produccion}: " + ", ".join(producciones_generadas)
+                )
+
+        return Gramatica(resultado, gramatica.simbolo_inicial), pasos
