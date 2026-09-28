@@ -35,6 +35,10 @@ class Produccion:
 
         if derecha in self.ALIAS_EPSILON or derecha.lower() == "epsilon":
             derecha = self.SIMBOLO_EPSILON
+        elif self.SIMBOLO_EPSILON in derecha:
+            raise ValueError(
+                "ε debe aparecer sola en el lado derecho de una producción."
+            )
 
         object.__setattr__(self, "izquierda", izquierda)
         object.__setattr__(self, "derecha", derecha)

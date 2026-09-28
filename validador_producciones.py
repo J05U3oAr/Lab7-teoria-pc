@@ -48,8 +48,13 @@ class ValidadorProducciones:
                     f"en '{alternativa.strip()}'."
                 )
 
-            if derecha in {"ε", "e", "epsilon"}:
+            if derecha in {"ε", "e"} or derecha.lower() == "epsilon":
                 derecha = Produccion.SIMBOLO_EPSILON
+            elif "ε" in derecha or "epsilon" in derecha.lower():
+                raise ValueError(
+                    f"Producción inválida{ubicacion}: ε debe aparecer sola "
+                    "en una alternativa."
+                )
 
             producciones.append(Produccion(izquierda, derecha))
 

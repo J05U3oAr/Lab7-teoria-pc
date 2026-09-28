@@ -25,10 +25,9 @@ class Gramatica:
             self._simbolo_inicial = (
                 self._producciones[0].izquierda if self._producciones else None
             )
-        elif self._producciones and simbolo_inicial not in self.no_terminales:
+        elif len(simbolo_inicial) != 1 or not simbolo_inicial.isupper():
             raise ValueError(
-                "El símbolo inicial debe aparecer como lado izquierdo "
-                "de alguna producción."
+                "El símbolo inicial debe ser un único no terminal en mayúscula."
             )
         else:
             self._simbolo_inicial = simbolo_inicial
