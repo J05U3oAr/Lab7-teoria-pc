@@ -32,6 +32,10 @@ python -m unittest discover -v
 Las pruebas comprueban las tres gramáticas, el cálculo de símbolos anulables,
 la validación de entradas incorrectas y la detención del programa ante errores.
 
+## Video demostrativo
+
+[Ver el video demostrativo en YouTube](https://youtu.be/rmliuVchmsM)
+
 ## Clases principales
 
 - `Produccion`: representa una producción individual.
