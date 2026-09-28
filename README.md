@@ -19,6 +19,19 @@ C -> S | e
 
 También se aceptan `ε` y `epsilon` para representar la cadena vacía.
 
+Si el símbolo inicial es anulable, el programa lo informa durante la
+ejecución. Como el enunciado solicita un resultado sin ninguna producción-ε,
+en ese caso el lenguaje resultante es `L(G) - {ε}`.
+
+## Pruebas
+
+```bash
+python -m unittest discover -v
+```
+
+Las pruebas comprueban las tres gramáticas, el cálculo de símbolos anulables,
+la validación de entradas incorrectas y la detención del programa ante errores.
+
 ## Clases principales
 
 - `Produccion`: representa una producción individual.

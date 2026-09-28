@@ -50,6 +50,12 @@ class EliminadorEpsilon:
             "No terminales anulables: "
             + (", ".join(sorted(nulables)) if nulables else "ninguno")
         ]
+        if gramatica.simbolo_inicial in nulables:
+            pasos.append(
+                f"El símbolo inicial {gramatica.simbolo_inicial} es anulable; "
+                "al exigir un resultado sin producciones-ε, ε deja de formar "
+                "parte del lenguaje resultante."
+            )
         resultado: list[Produccion] = []
         claves: set[tuple[str, str]] = set()
 
